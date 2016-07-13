@@ -4,6 +4,12 @@ import me.hii488.gameWorld.World;
 
 public class StandardEnemy extends GeneralEnemyEntity{
 	
+	public StandardEnemy(){}
+	
+	public StandardEnemy(GeneralEnemyEntity e) {
+		super(e);
+	}
+
 	@Override
 	public void setup() {
 		textureName = "standardEnemy.png";
@@ -15,7 +21,7 @@ public class StandardEnemy extends GeneralEnemyEntity{
 	public void updateOnTick(){
 		super.updateOnTick();
 		
-		if(alive){
+		if(notDestroyed){
 			if(World.rand.nextFloat() < (1/(4*60))){
 				Bullet b = new Bullet();
 				b.shooter = this;
@@ -26,6 +32,10 @@ public class StandardEnemy extends GeneralEnemyEntity{
 				World.getCurrentWorldContainer().entities.add(b);
 			}
 		}
+	}
+	
+	public StandardEnemy clone(){
+		return new StandardEnemy(this);
 	}
 	
 }

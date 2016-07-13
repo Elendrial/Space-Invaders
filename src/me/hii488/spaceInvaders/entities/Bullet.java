@@ -25,14 +25,13 @@ public class Bullet extends GeneralEntity{
 	public void updateOnTick() {
 		this.position.addToLocation(0, -speed);
 		super.updateOnTick();
-		if(alive){
+		if(notDestroyed){
 			ArrayList<GeneralEntity> collidingWith = EntityHelper.getCollidingEntities(this);
 			for(GeneralEntity e : collidingWith){
 				//System.out.println("Colliding with: " + e.getClass().getSimpleName());
 				if(e instanceof GeneralEnemyEntity){
 					((GeneralEnemyEntity) e).health -= 1;
-					this.destroy();
-					return;
+					if(notDestroyed)this.destroy();
 				}
 			}
 			
