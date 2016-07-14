@@ -3,8 +3,8 @@ package me.hii488.spaceInvaders.entities;
 import java.util.ArrayList;
 
 import me.hii488.gameWorld.World;
-import me.hii488.general.EntityHelper;
-import me.hii488.general.Grid;
+import me.hii488.gameWorld.baseTypes.Grid;
+import me.hii488.helpers.EntityHelper;
 import me.hii488.objects.entities.GeneralEntity;
 import me.hii488.spaceInvaders.Initilisation;
 import me.hii488.spaceInvaders.tiles.BlockTile;

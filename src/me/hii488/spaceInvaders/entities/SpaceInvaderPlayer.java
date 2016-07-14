@@ -42,9 +42,9 @@ public class SpaceInvaderPlayer extends Player{
 			Bullet b = new Bullet();
 			b.shooter = this;
 			b.position = this.position.clone();
-			b.position.addToLocation(0, -this.textureImage.getHeight());
+			b.position.addToLocation(this.textureImage.getWidth()/2, -this.textureImage.getHeight());
 			b.setup();
-			World.getCurrentWorldContainer().entities.add(b);
+			World.getCurrentWorldContainer().addEntity(b);
 			cooldown = 30;
 		}
 		

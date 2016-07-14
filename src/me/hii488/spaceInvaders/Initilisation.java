@@ -94,8 +94,12 @@ public class Initilisation implements IInitilisation{
 	}
 	
 	public void entityInit(){
-		standardEnemy.position = mainContainer.grid.getPositionFromTileCoords(new Position(mainContainer.grid.gridSize[0]/2, 3));
-		mainContainer.entities.add(standardEnemy);
+		for(int i = 0; i < 6; i++){
+			for(int j = 0; j < 15; j++){
+				standardEnemy.position = new Position(20+j*(standardEnemy.textureImage.getWidth() + 4), 20 + i*(standardEnemy.textureImage.getHeight() + 4));
+				mainContainer.addEntity(standardEnemy.clone());
+			}
+		}
 	}
 	
 	

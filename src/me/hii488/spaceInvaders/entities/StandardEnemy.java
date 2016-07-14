@@ -14,23 +14,26 @@ public class StandardEnemy extends GeneralEnemyEntity{
 	public void setup() {
 		textureName = "standardEnemy.png";
 		this.health = 1;
+		this.randTickChance = 0.00125f;
 		super.setup();
 	}
 	
 	@Override
 	public void updateOnTick(){
 		super.updateOnTick();
-		
+	}
+	
+	@Override
+	public void updateOnRandTick(){
+		//System.out.println("randomTick");
 		if(notDestroyed){
-			if(World.rand.nextFloat() < (1/(4*60))){
-				Bullet b = new Bullet();
-				b.shooter = this;
-				b.position = this.position.clone();
-				b.position.addToLocation(0, this.textureImage.getHeight()+1);
-				b.setup();
-				b.speed = -b.speed;
-				World.getCurrentWorldContainer().entities.add(b);
-			}
+			Bullet b = new Bullet();
+			b.shooter = this;
+			b.position = this.position.clone();
+			b.position.addToLocation(this.textureImage.getWidth()/2-2, this.textureImage.getHeight() + 1);
+			b.setup();
+			b.speed = -b.speed;
+			World.getCurrentWorldContainer().addEntity(b);
 		}
 	}
 	
