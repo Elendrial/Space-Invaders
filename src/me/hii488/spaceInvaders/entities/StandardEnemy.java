@@ -1,7 +1,5 @@
 package me.hii488.spaceInvaders.entities;
 
-import me.hii488.gameWorld.World;
-
 public class StandardEnemy extends GeneralEnemyEntity{
 	
 	public StandardEnemy(){}
@@ -21,20 +19,6 @@ public class StandardEnemy extends GeneralEnemyEntity{
 	@Override
 	public void updateOnTick(){
 		super.updateOnTick();
-	}
-	
-	@Override
-	public void updateOnRandTick(){
-		//System.out.println("randomTick");
-		if(notDestroyed){
-			Bullet b = new Bullet();
-			b.shooter = this;
-			b.position = this.position.clone();
-			b.position.addToLocation(this.textureImage.getWidth()/2-2, this.textureImage.getHeight() + 1);
-			b.setup();
-			b.speed = -b.speed;
-			World.getCurrentWorldContainer().addEntity(b);
-		}
 	}
 	
 	public StandardEnemy clone(){

@@ -18,8 +18,11 @@ public class Bullet extends GeneralEntity{
 	@Override
 	public void setup() {
 		textureName = "bullet.png";
+		this.states = 4;
 		super.setup();
 	}
+	
+	public int ticksUntilTextureSwitch = 0;
 	
 	@Override
 	public void updateOnTick() {
@@ -28,7 +31,6 @@ public class Bullet extends GeneralEntity{
 		if(notDestroyed){
 			ArrayList<GeneralEntity> collidingWith = EntityHelper.getCollidingEntities(this);
 			for(GeneralEntity e : collidingWith){
-				//System.out.println("Colliding with: " + e.getClass().getSimpleName());
 				if(e instanceof GeneralEnemyEntity){
 					((GeneralEnemyEntity) e).health -= 1;
 					if(notDestroyed)this.destroy();
@@ -45,6 +47,18 @@ public class Bullet extends GeneralEntity{
 			if(g.getTile(g.getGridPositionOn(this.position)).getTileType() instanceof BlockTile){
 				g.setTileType(Initilisation.injuredBlockTile, g.getGridPositionOn(this.position));
 				this.destroy();
+			}
+			
+			
+			ticksUntilTextureSwitch--; // Ternary operators weren't working here for some reason :/
+			if(ticksUntilTextureSwitch <= 0) {
+				switch(currentState){
+				case 1 : currentState = 2; break;
+				case 2 : currentState = 1; break;
+				case 3 : currentState = 4; break;
+				case 4 : currentState = 3; break;
+				}
+				ticksUntilTextureSwitch = 7;
 			}
 			
 		}

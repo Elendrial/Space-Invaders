@@ -2,6 +2,7 @@ package me.hii488.spaceInvaders.entities;
 
 import java.awt.Rectangle;
 
+import me.hii488.gameWorld.World;
 import me.hii488.objects.entities.GeneralEntity;
 
 public class GeneralEnemyEntity extends GeneralEntity{
@@ -18,8 +19,22 @@ public class GeneralEnemyEntity extends GeneralEntity{
 	@Override
 	public void updateOnTick(){
 		super.updateOnTick();
-		collisionBox = new Rectangle(position.getX()-1,position.getY(),textureImage.getWidth()+2, textureImage.getHeight());
+		collisionBox = new Rectangle(position.getX(),position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 		if(notDestroyed) if(health <= 0) this.destroy();
+	}
+	
+	@Override
+	public void updateOnRandTick(){
+		if(notDestroyed){
+			Bullet b = new Bullet();
+			b.currentState = 1;
+			b.setup();
+			b.shooter = this;
+			b.position = this.position.clone();
+			b.position.addToLocation(this.currentTexture.getWidth()/2-2, this.currentTexture.getHeight() + 1);
+			b.speed = -b.speed;
+			World.getCurrentWorldContainer().addEntity(b);
+		}
 	}
 	
 	public GeneralEnemyEntity clone(){

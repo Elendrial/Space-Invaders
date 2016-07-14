@@ -94,9 +94,9 @@ public class Initilisation implements IInitilisation{
 	}
 	
 	public void entityInit(){
-		for(int i = 0; i < 6; i++){
+		for(int i = 0; i < 2; i++){
 			for(int j = 0; j < 15; j++){
-				standardEnemy.position = new Position(20+j*(standardEnemy.textureImage.getWidth() + 4), 20 + i*(standardEnemy.textureImage.getHeight() + 4));
+				standardEnemy.position = new Position(20+j*(standardEnemy.currentTexture.getWidth() + 4), 20 + i*(standardEnemy.currentTexture.getHeight() + 4));
 				mainContainer.addEntity(standardEnemy.clone());
 			}
 		}
