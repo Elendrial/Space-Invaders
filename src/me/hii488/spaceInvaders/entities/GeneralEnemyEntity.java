@@ -1,7 +1,5 @@
 package me.hii488.spaceInvaders.entities;
 
-import java.awt.Rectangle;
-
 import me.hii488.gameWorld.World;
 import me.hii488.objects.entities.GeneralEntity;
 
@@ -15,11 +13,10 @@ public class GeneralEnemyEntity extends GeneralEntity{
 		super(e);
 		this.health = e.health;
 	}
-
+	
 	@Override
 	public void updateOnTick(){
 		super.updateOnTick();
-		collisionBox = new Rectangle(position.getX(),position.getY(), currentTexture.getWidth(), currentTexture.getHeight());
 		if(notDestroyed) if(health <= 0) this.destroy();
 	}
 	

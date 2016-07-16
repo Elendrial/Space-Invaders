@@ -3,7 +3,9 @@ package me.hii488.spaceInvaders;
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.Initialisation.IInitilisation;
 import me.hii488.gameWorld.Initialisation.WorldInitialisation;
+import me.hii488.gameWorld.tickControl.TickController;
 import me.hii488.general.Position;
+import me.hii488.spaceInvaders.additionalTickers.EnemyLogic;
 import me.hii488.spaceInvaders.containers.GameContainer;
 import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
 import me.hii488.spaceInvaders.entities.StandardEnemy;
@@ -18,6 +20,7 @@ public class Initilisation implements IInitilisation{
 	
 	public static void gameSetup(){
 		WorldInitialisation.initList.add(initClass);
+		TickController.additionalEarlyTicking.add(new EnemyLogic());
 	}
 	
 	@Override
@@ -94,9 +97,26 @@ public class Initilisation implements IInitilisation{
 	}
 	
 	public void entityInit(){
+		standardEnemy.currentState = 4;
 		for(int i = 0; i < 2; i++){
 			for(int j = 0; j < 15; j++){
-				standardEnemy.position = new Position(20+j*(standardEnemy.currentTexture.getWidth() + 4), 20 + i*(standardEnemy.currentTexture.getHeight() + 4));
+				standardEnemy.position = new Position(50+j*(standardEnemy.currentTexture.getWidth() + 4), 50 + i*(standardEnemy.currentTexture.getHeight() + 4));
+				mainContainer.addEntity(standardEnemy.clone());
+			}
+		}
+		
+		standardEnemy.currentState = 2;
+		for(int i = 0; i < 2; i++){
+			for(int j = 0; j < 15; j++){
+				standardEnemy.position = new Position(50+j*(standardEnemy.currentTexture.getWidth() + 4), 90 + i*(standardEnemy.currentTexture.getHeight() + 4));
+				mainContainer.addEntity(standardEnemy.clone());
+			}
+		}
+		
+		standardEnemy.currentState = 0;
+		for(int i = 0; i < 2; i++){
+			for(int j = 0; j < 15; j++){
+				standardEnemy.position = new Position(50+j*(standardEnemy.currentTexture.getWidth() + 4), 130 + i*(standardEnemy.currentTexture.getHeight() + 4));
 				mainContainer.addEntity(standardEnemy.clone());
 			}
 		}
