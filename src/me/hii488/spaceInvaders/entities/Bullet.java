@@ -12,7 +12,7 @@ import me.hii488.spaceInvaders.tiles.InjuredBlockTile;
 
 public class Bullet extends GeneralEntity{
 	
-	public int speed = 7;
+	public int speed = 10;
 	public GeneralEntity shooter;
 	
 	@Override

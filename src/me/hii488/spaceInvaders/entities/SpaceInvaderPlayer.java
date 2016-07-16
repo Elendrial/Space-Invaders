@@ -45,7 +45,7 @@ public class SpaceInvaderPlayer extends Player{
 			b.position.addToLocation(this.currentTexture.getWidth()/2, -this.currentTexture.getHeight());
 			b.setup();
 			World.getCurrentWorldContainer().addEntity(b);
-			cooldown = 30;
+			cooldown = 15;
 		}
 		
 	}

@@ -6,6 +6,7 @@ import me.hii488.objects.entities.GeneralEntity;
 public class GeneralEnemyEntity extends GeneralEntity{
 	
 	public int health = 1;
+	public boolean canShoot = false;
 	
 	public GeneralEnemyEntity(){}
 	
@@ -22,14 +23,14 @@ public class GeneralEnemyEntity extends GeneralEntity{
 	
 	@Override
 	public void updateOnRandTick(){
-		if(notDestroyed){
+		if(notDestroyed && canShoot){
 			Bullet b = new Bullet();
-			b.currentState = 1;
+			b.currentState = (World.rand.nextFloat() < this.currentState/this.states) ? 3 : 1;
 			b.setup();
 			b.shooter = this;
 			b.position = this.position.clone();
 			b.position.addToLocation(this.currentTexture.getWidth()/2-2, this.currentTexture.getHeight() + 1);
-			b.speed = -b.speed;
+			b.speed = -7- b.currentState * 3;
 			World.getCurrentWorldContainer().addEntity(b);
 		}
 	}
