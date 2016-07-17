@@ -2,6 +2,7 @@ package me.hii488.spaceInvaders.entities;
 
 import me.hii488.gameWorld.World;
 import me.hii488.objects.entities.GeneralEntity;
+import me.hii488.spaceInvaders.additionalTickers.GameController;
 
 public class GeneralEnemyEntity extends GeneralEntity{
 	
@@ -23,7 +24,7 @@ public class GeneralEnemyEntity extends GeneralEntity{
 	
 	@Override
 	public void updateOnRandTick(){
-		if(notDestroyed && canShoot){
+		if(notDestroyed && canShoot && GameController.gameState==1){
 			Bullet b = new Bullet();
 			b.currentState = (World.rand.nextFloat() < this.currentState/this.states) ? 3 : 1;
 			b.setup();

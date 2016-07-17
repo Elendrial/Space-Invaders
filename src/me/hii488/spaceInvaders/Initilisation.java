@@ -5,7 +5,9 @@ import me.hii488.gameWorld.Initialisation.IInitilisation;
 import me.hii488.gameWorld.Initialisation.WorldInitialisation;
 import me.hii488.gameWorld.tickControl.TickController;
 import me.hii488.general.Position;
+import me.hii488.objects.entities.GeneralEmptyEntity;
 import me.hii488.spaceInvaders.additionalTickers.EnemyLogic;
+import me.hii488.spaceInvaders.additionalTickers.GameController;
 import me.hii488.spaceInvaders.containers.GameContainer;
 import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
 import me.hii488.spaceInvaders.entities.StandardEnemy;
@@ -17,9 +19,11 @@ import me.hii488.spaceInvaders.tiles.InvisibleWallTile;
 public class Initilisation implements IInitilisation{
 
 	public static Initilisation initClass = new Initilisation();
+	public static GameController gameController = new GameController();
 	
 	public static void gameSetup(){
 		WorldInitialisation.initList.add(initClass);
+		TickController.additionalEarlyTicking.add(gameController);
 		TickController.additionalEarlyTicking.add(new EnemyLogic());
 	}
 	
@@ -60,6 +64,7 @@ public class Initilisation implements IInitilisation{
 	
 	
 	public static GameContainer mainContainer = new GameContainer();
+	public static GameContainer emptyContainer = new GameContainer();
 	
 	public void containerPreInit(){
 		mainContainer.setup();
@@ -85,15 +90,26 @@ public class Initilisation implements IInitilisation{
 			mainContainer.grid.setTileType(blockTile, i*10 + 2 + shift, mainContainer.grid.gridSize[1] - 3);
 			mainContainer.grid.setTileType(blockTile, i*10 + 7 + shift, mainContainer.grid.gridSize[1] - 3);
 		}
+
+		World.Containers.addContainer(mainContainer);
 		
+		
+		emptyContainer.setup();
+		emptyContainer.grid.fillRectWithTileType(backgroundTile, 0, 0, mainContainer.grid.gridSize[0], mainContainer.grid.gridSize[1]);
+		
+		World.Containers.addContainer(emptyContainer);
 	}
 	
 	
 	public static StandardEnemy standardEnemy;
+	public static GeneralEmptyEntity empty;
 	
 	public void entityPreInit(){
 		standardEnemy = new StandardEnemy();
 		standardEnemy.setup();
+		
+		empty = new GeneralEmptyEntity();
+		empty.setup();
 	}
 	
 	public void entityInit(){
@@ -104,6 +120,10 @@ public class Initilisation implements IInitilisation{
 				mainContainer.addEntity(standardEnemy.clone());
 			}
 		}
+		
+		empty.position = standardEnemy.position.clone();
+		empty.position.addToLocation(0, -standardEnemy.currentTexture.getHeight());
+		mainContainer.addEntity(empty);
 		
 		standardEnemy.currentState = 2;
 		for(int i = 0; i < 2; i++){
@@ -129,8 +149,7 @@ public class Initilisation implements IInitilisation{
 	}
 	
 	public void worldInit(){
-		World.Containers.addContainer(mainContainer);
-		World.Containers.loadNewContainer(mainContainer.ID);
+		World.Containers.loadNewContainer(emptyContainer.ID);
 	}
 
 }

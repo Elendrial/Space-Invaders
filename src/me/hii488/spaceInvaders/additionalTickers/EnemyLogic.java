@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.objects.entities.GeneralEntity;
+import me.hii488.spaceInvaders.Initilisation;
 import me.hii488.spaceInvaders.entities.GeneralEnemyEntity;
 
 public class EnemyLogic implements ITickable{
@@ -33,7 +34,7 @@ public class EnemyLogic implements ITickable{
 							movementStateUpdatedInTick = true;
 							ticksInState = 0;
 						}
-						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() <= 1){
+						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() <= 0){
 							currentMovementState = currentMovementState == 3 ? 0 : 3;
 							movementStateUpdatedInTick = true;
 							ticksInState = 0;
@@ -65,7 +66,17 @@ public class EnemyLogic implements ITickable{
 					}
 				}
 			}
-			ticksUntilMovement = 20;
+			switch(currentMovementState){
+			case 1:
+				Initilisation.empty.position.addToLocation(0, Initilisation.standardEnemy.currentTexture.getHeight() + 4);
+				break;
+			case 3:
+				Initilisation.empty.position.addToLocation(0, Initilisation.standardEnemy.currentTexture.getHeight() + 4);
+				break;
+			}
+			
+			ticksUntilMovement = (int) (20 / (GameController.round));
+			
 		}
 		ticksUntilMovement--;
 	}

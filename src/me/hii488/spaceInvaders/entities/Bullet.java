@@ -31,8 +31,12 @@ public class Bullet extends GeneralEntity{
 		if(notDestroyed){
 			ArrayList<GeneralEntity> collidingWith = EntityHelper.getCollidingEntities(this);
 			for(GeneralEntity e : collidingWith){
-				if(e instanceof GeneralEnemyEntity){
-					((GeneralEnemyEntity) e).health -= 1;
+				if(e instanceof StandardEnemy){
+					((StandardEnemy) e).isShot();
+					if(notDestroyed)this.destroy();
+				}
+				if(e instanceof SpaceInvaderPlayer){
+					((SpaceInvaderPlayer) e).isShot(this);
 					if(notDestroyed)this.destroy();
 				}
 			}
