@@ -32,7 +32,7 @@ public class Bullet extends GeneralEntity{
 			ArrayList<GeneralEntity> collidingWith = EntityHelper.getCollidingEntities(this);
 			for(GeneralEntity e : collidingWith){
 				if(e instanceof StandardEnemy){
-					((StandardEnemy) e).isShot();
+					((StandardEnemy) e).isShot(this);
 					if(notDestroyed)this.destroy();
 				}
 				if(e instanceof SpaceInvaderPlayer){

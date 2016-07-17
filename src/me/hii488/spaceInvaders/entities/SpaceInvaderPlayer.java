@@ -69,7 +69,7 @@ public class SpaceInvaderPlayer extends Player{
 		
 		if(GameController.gameState == 1){
 			super.render(g);
-			for(int i = 0; i < this.lives; i++)	g.drawImage(currentTexture, i*(currentTexture.getWidth() + 4) + 40, 5, null);
+			for(int i = 0; i < this.lives; i++)	g.drawImage(Initilisation.smallPlayerIcon, i*(Initilisation.smallPlayerIcon.getWidth() + 4) + 40, 8, null);
 			g.setColor(Color.white);
 			g.drawString("Lives: ", 5, 17);
 			g.drawString("Score:" + GameController.score, 100, 17);

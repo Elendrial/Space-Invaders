@@ -1,5 +1,6 @@
 package me.hii488.spaceInvaders.entities;
 
+import me.hii488.objects.entities.Player;
 import me.hii488.spaceInvaders.additionalTickers.GameController;
 
 public class StandardEnemy extends GeneralEnemyEntity{
@@ -43,21 +44,23 @@ public class StandardEnemy extends GeneralEnemyEntity{
 		return new StandardEnemy(this);
 	}
 	
-	public void isShot(){
+	public void isShot(Bullet b){
 		health--;
-		switch(currentState){
-		case 0:
-		case 1:
-			GameController.score += 10;
-			break;
-		case 2:
-		case 3:
-			GameController.score += 20;
-			break;
-		case 4:
-		case 5:
-			GameController.score += 50;
-			break;
+		if(b.shooter instanceof Player){
+			switch(currentState){
+			case 0:
+			case 1:
+				GameController.score += 10;
+				break;
+			case 2:
+			case 3:
+				GameController.score += 20;
+				break;
+			case 4:
+			case 5:
+				GameController.score += 50;
+				break;
+			}
 		}
 	}
 	

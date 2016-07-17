@@ -1,10 +1,17 @@
 package me.hii488.spaceInvaders;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.Initialisation.IInitilisation;
 import me.hii488.gameWorld.Initialisation.WorldInitialisation;
 import me.hii488.gameWorld.tickControl.TickController;
 import me.hii488.general.Position;
+import me.hii488.general.Settings;
+import me.hii488.helpers.TextureHelper;
 import me.hii488.objects.entities.GeneralEmptyEntity;
 import me.hii488.spaceInvaders.additionalTickers.EnemyLogic;
 import me.hii488.spaceInvaders.additionalTickers.GameController;
@@ -21,10 +28,24 @@ public class Initilisation implements IInitilisation{
 	public static Initilisation initClass = new Initilisation();
 	public static GameController gameController = new GameController();
 	
+	public static BufferedImage smallPlayerIcon;
+	
 	public static void gameSetup(){
 		WorldInitialisation.initList.add(initClass);
 		TickController.additionalEarlyTicking.add(gameController);
 		TickController.additionalEarlyTicking.add(new EnemyLogic());
+		
+		try {
+			smallPlayerIcon = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\playersmall.png"));
+		} catch (Exception e) {
+			try {
+				TextureHelper.TextureNotFoundPrint("playersmall.png", Initilisation.class);
+				smallPlayerIcon = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\" + Settings.defaultEntityTextureLocation));
+			} catch (Exception e1) {
+				TextureHelper.TextureNotFoundPrint(Settings.defaultEntityTextureLocation, Initilisation.class);
+			}
+		}
+		
 	}
 	
 	@Override

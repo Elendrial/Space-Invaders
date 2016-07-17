@@ -65,12 +65,18 @@ public class GameController implements ITickable{
 	// Inputs come from the player class, as then I don't have to implement all of the key stuff.
 	public void keyDown(KeyEvent e){
 		if(gameState == 0) {
-			gameState++;
+			gameState = 1;
 			loadGameContainer();
 		}
 		
 		if(gameState == 1 && e.getKeyCode() == KeyEvent.VK_P){
 			World.isPaused = !World.isPaused;
+		}
+		
+		if(gameState == 2){
+			World.isPaused = false;
+			gameState = 1;
+			Initilisation.mainContainer.clear();
 		}
 	}
 	

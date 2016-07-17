@@ -29,12 +29,12 @@ public class EnemyLogic implements ITickable{
 			for(GeneralEntity e : World.getCurrentWorldContainer().getEntities()){
 				if(e instanceof GeneralEnemyEntity){
 					if(!movementStateUpdatedInTick){
-						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() >= World.getCurrentWorldContainer().grid.gridSize[0]-1){
+						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() >= World.getCurrentWorldContainer().grid.gridSize[0]-2){
 							currentMovementState = currentMovementState == 1 ? 2 : 1;
 							movementStateUpdatedInTick = true;
 							ticksInState = 0;
 						}
-						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() <= 0){
+						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() <= 1){
 							currentMovementState = currentMovementState == 3 ? 0 : 3;
 							movementStateUpdatedInTick = true;
 							ticksInState = 0;
@@ -85,11 +85,14 @@ public class EnemyLogic implements ITickable{
 	public void updateOnSec() {
 		// No need to put shooting in updateOnTick(), as it doesn't happen frequently enough.
 		for(GeneralEntity e : World.getCurrentWorldContainer().getEntities()){
-			e.showCollisionBox = true;
-			if(e instanceof GeneralEnemyEntity) if(World.getCurrentWorldContainer().getEntitiesInsideRect(new Rectangle(e.position.getX() + e.currentTexture.getWidth() / 2 - 2, 
-					e.position.getY() + e.currentTexture.getHeight(), 4, e.currentTexture.getHeight() * 6), false).isEmpty())  ((GeneralEnemyEntity) e).canShoot = true;
+		//	e.showCollisionBox = true;
+			if(e instanceof GeneralEnemyEntity) {
+				if(World.getCurrentWorldContainer().getEntitiesInsideRect(new Rectangle(e.position.getX() + e.currentTexture.getWidth() / 2 - 2, e.position.getY() + e.currentTexture.getHeight(), 4, e.currentTexture.getHeight() * 6), false).isEmpty())  
+					((GeneralEnemyEntity) e).canShoot = true;
+				else ((GeneralEnemyEntity) e).canShoot = false;
+			}
 			
-			e.showCollisionBox = false;
+		//	e.showCollisionBox = false;
 		}
 	}
 
