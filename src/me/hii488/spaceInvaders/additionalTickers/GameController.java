@@ -2,13 +2,17 @@ package me.hii488.spaceInvaders.additionalTickers;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.Map.Entry;
 
 import me.hii488.gameWorld.World;
+import me.hii488.gameWorld.baseTypes.GeneralWorldContainer;
 import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.general.Position;
 import me.hii488.objects.entities.GeneralEntity;
 import me.hii488.spaceInvaders.Initilisation;
+import me.hii488.spaceInvaders.containers.GameContainer;
 import me.hii488.spaceInvaders.entities.GeneralEnemyEntity;
+import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
 
 public class GameController implements ITickable{
 
@@ -75,8 +79,22 @@ public class GameController implements ITickable{
 		
 		if(gameState == 2){
 			World.isPaused = false;
+			
+			World.Containers.removeContainer(0);
+			
+			GameContainer mainContainer = new GameContainer();
+			Initilisation.initClass.mainContainerPreInit(mainContainer);
+			Initilisation.initClass.entityInit(mainContainer);
+			
+			World.player.position = World.getCurrentWorldContainer().grid.getPositionFromTileCoords(new Position(World.getCurrentWorldContainer().grid.gridSize[0]/2, World.getCurrentWorldContainer().grid.gridSize[1]-1));
+			((SpaceInvaderPlayer)World.player).lives = 3;
+			
+			World.Containers.addContainer(mainContainer);
+			World.Containers.loadNewContainer(mainContainer.ID);
+			
+			score = 0;
 			gameState = 1;
-			Initilisation.mainContainer.clear();
+			
 		}
 	}
 	
