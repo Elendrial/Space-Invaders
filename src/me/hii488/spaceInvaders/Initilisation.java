@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.Initialisation.IInitilisation;
 import me.hii488.gameWorld.Initialisation.WorldInitialisation;
+import me.hii488.gameWorld.baseTypes.GeneralWorldContainer;
 import me.hii488.gameWorld.tickControl.TickController;
 import me.hii488.general.Position;
 import me.hii488.general.Settings;
@@ -88,37 +89,47 @@ public class Initilisation implements IInitilisation{
 	public static GameContainer emptyContainer = new GameContainer();
 	
 	public void containerPreInit(){
-		mainContainer.setup();
+		mainContainerPreInit();
+		emptyContainerPreInit();
+	}
+	
+	public void mainContainerPreInit(){
+		this.mainContainerPreInit(mainContainer);
+	}
+	
+	public void mainContainerPreInit(GeneralWorldContainer gwc){
+		gwc.setup();
 		// BASIC BACKGROUDN
-		mainContainer.grid.fillRectWithTileType(backgroundTile, 0, 0, mainContainer.grid.gridSize[0], mainContainer.grid.gridSize[1]);
+		gwc.grid.fillRectWithTileType(backgroundTile, 0, 0, gwc.grid.gridSize[0], gwc.grid.gridSize[1]);
 		// TO STOP PLAYER GOING OFF EDGE OF MAP
-		mainContainer.grid.setTileType(invisWallTile, mainContainer.grid.gridSize[0]-1, mainContainer.grid.gridSize[1]-1);
-		mainContainer.grid.setTileType(invisWallTile, 0, mainContainer.grid.gridSize[1]-1);
+		gwc.grid.setTileType(invisWallTile, gwc.grid.gridSize[0]-1, gwc.grid.gridSize[1]-1);
+		gwc.grid.setTileType(invisWallTile, 0, gwc.grid.gridSize[1]-1);
 		
 		// MAKING WALLS/COVER
-		int amount = (int) Math.floor(mainContainer.grid.gridSize[0]/10);
-		int shift = (mainContainer.grid.gridSize[0]%10)/2;
+		int amount = (int) Math.floor(gwc.grid.gridSize[0]/10);
+		int shift = (gwc.grid.gridSize[0]%10)/2;
 		
 		for(int i = 0; i < amount; i++){
 			for(int j = 2; j < 8; j++){
-				mainContainer.grid.setTileType(blockTile, i*10 + j + shift, mainContainer.grid.gridSize[1] - 4);
+				gwc.grid.setTileType(blockTile, i*10 + j + shift, gwc.grid.gridSize[1] - 4);
 			}
 			
 			for(int j = 3; j < 7; j++){
-				mainContainer.grid.setTileType(blockTile, i*10 + j + shift, mainContainer.grid.gridSize[1] - 5);
+				gwc.grid.setTileType(blockTile, i*10 + j + shift, gwc.grid.gridSize[1] - 5);
 			}
 			
-			mainContainer.grid.setTileType(blockTile, i*10 + 2 + shift, mainContainer.grid.gridSize[1] - 3);
-			mainContainer.grid.setTileType(blockTile, i*10 + 7 + shift, mainContainer.grid.gridSize[1] - 3);
+			gwc.grid.setTileType(blockTile, i*10 + 2 + shift, gwc.grid.gridSize[1] - 3);
+			gwc.grid.setTileType(blockTile, i*10 + 7 + shift, gwc.grid.gridSize[1] - 3);
 		}
 
-		World.Containers.addContainer(mainContainer);
-		
-		
+		if(!World.Containers.containerExists(gwc.ID))World.Containers.addContainer(gwc);
+	}
+	
+	public void emptyContainerPreInit(){
 		emptyContainer.setup();
 		emptyContainer.grid.fillRectWithTileType(backgroundTile, 0, 0, mainContainer.grid.gridSize[0], mainContainer.grid.gridSize[1]);
 		
-		World.Containers.addContainer(emptyContainer);
+		if(!World.Containers.containerExists(emptyContainer.ID))World.Containers.addContainer(emptyContainer);
 	}
 	
 	
@@ -134,23 +145,27 @@ public class Initilisation implements IInitilisation{
 	}
 	
 	public void entityInit(){
+		this.entityInit(mainContainer);
+	}
+	
+	public void entityInit(GeneralWorldContainer gwc){
 		standardEnemy.currentState = 4;
 		for(int i = 0; i < 2; i++){
 			for(int j = 0; j < 15; j++){
 				standardEnemy.position = new Position(50+j*(standardEnemy.currentTexture.getWidth() + 4), 50 + i*(standardEnemy.currentTexture.getHeight() + 4));
-				mainContainer.addEntity(standardEnemy.clone());
+				gwc.addEntity(standardEnemy.clone());
 			}
 		}
 		
 		empty.position = standardEnemy.position.clone();
 		empty.position.addToLocation(0, -standardEnemy.currentTexture.getHeight());
-		mainContainer.addEntity(empty);
+		gwc.addEntity(empty);
 		
 		standardEnemy.currentState = 2;
 		for(int i = 0; i < 2; i++){
 			for(int j = 0; j < 15; j++){
 				standardEnemy.position = new Position(50+j*(standardEnemy.currentTexture.getWidth() + 4), 90 + i*(standardEnemy.currentTexture.getHeight() + 4));
-				mainContainer.addEntity(standardEnemy.clone());
+				gwc.addEntity(standardEnemy.clone());
 			}
 		}
 		
@@ -158,7 +173,7 @@ public class Initilisation implements IInitilisation{
 		for(int i = 0; i < 2; i++){
 			for(int j = 0; j < 15; j++){
 				standardEnemy.position = new Position(50+j*(standardEnemy.currentTexture.getWidth() + 4), 130 + i*(standardEnemy.currentTexture.getHeight() + 4));
-				mainContainer.addEntity(standardEnemy.clone());
+				gwc.addEntity(standardEnemy.clone());
 			}
 		}
 	}
