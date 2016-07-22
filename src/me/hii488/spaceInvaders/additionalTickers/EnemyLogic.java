@@ -4,10 +4,13 @@ import java.awt.Rectangle;
 
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.tickControl.ITickable;
+import me.hii488.objects.entities.GeneralEmptyEntity;
 import me.hii488.objects.entities.GeneralEntity;
 import me.hii488.spaceInvaders.Initilisation;
+import me.hii488.spaceInvaders.entities.Bullet;
 import me.hii488.spaceInvaders.entities.EnemyShip;
 import me.hii488.spaceInvaders.entities.GeneralEnemyEntity;
+import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
 import me.hii488.spaceInvaders.entities.StandardEnemy;
 
 public class EnemyLogic implements ITickable{
@@ -84,6 +87,10 @@ public class EnemyLogic implements ITickable{
 		
 		for(GeneralEntity ge : World.getCurrentWorldContainer().getEntities()){
 			if(ge instanceof EnemyShip) ge.position.addToLocation((((EnemyShip)ge).movementState) * 5, 0);
+			if(ge instanceof GeneralEmptyEntity) if(ge.position.getAbsY() > World.mainWindow.height - 100) {
+				((SpaceInvaderPlayer)World.player).lives = 0;
+				((SpaceInvaderPlayer)World.player).isShot(new Bullet());
+			}
 		}
 	}
 

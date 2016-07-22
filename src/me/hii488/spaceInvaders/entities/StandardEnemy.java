@@ -35,7 +35,7 @@ public class StandardEnemy extends GeneralEnemyEntity{
 			case 4 : currentState = 5; break;
 			case 5 : currentState = 4; break;
 			}
-			ticksUntilTextureSwitch = 10;
+			ticksUntilTextureSwitch = 10 / GameController.round;
 		}
 		ticksUntilTextureSwitch--;
 	}

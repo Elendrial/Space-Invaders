@@ -73,6 +73,7 @@ public class SpaceInvaderPlayer extends Player{
 			g.setColor(Color.white);
 			g.drawString("Lives: ", 5, 17);
 			g.drawString("Score:" + GameController.score, 100, 17);
+			g.drawString("Waves Killed: " + (GameController.round - 1), 180, 17);
 			g.setColor(Color.black);
 		}
 		
@@ -97,7 +98,7 @@ public class SpaceInvaderPlayer extends Player{
 	
 	public void isShot(Bullet b){
 		this.lives--;
-		if(lives == 0){
+		if(lives <= 0){
 			GameController.gameState = 2;
 			Initilisation.gameController.loadEmptyContainer();
 			return;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.baseTypes.Grid;
+import me.hii488.general.Position;
 import me.hii488.helpers.EntityHelper;
 import me.hii488.objects.entities.GeneralEntity;
 import me.hii488.spaceInvaders.Initilisation;
@@ -43,13 +44,17 @@ public class Bullet extends GeneralEntity{
 			
 			Grid g = World.getCurrentWorldContainer().grid;
 			
-			if(g.getTile(g.getGridPositionOn(this.position)).getTileType() instanceof InjuredBlockTile){
-				g.setTileType(Initilisation.backgroundTile, g.getGridPositionOn(this.position));
+			Position p = this.position.clone();
+			p.addToLocation(-6, 0);
+			
+			
+			if(g.getTile(g.getGridPositionOn(p)).getTileType() instanceof InjuredBlockTile){
+				g.setTileType(Initilisation.backgroundTile, g.getGridPositionOn(p));
 				this.destroy();
 			}
 			
-			if(g.getTile(g.getGridPositionOn(this.position)).getTileType() instanceof BlockTile){
-				g.setTileType(Initilisation.injuredBlockTile, g.getGridPositionOn(this.position));
+			if(g.getTile(g.getGridPositionOn(p)).getTileType() instanceof BlockTile){
+				g.setTileType(Initilisation.injuredBlockTile, g.getGridPositionOn(p));
 				this.destroy();
 			}
 			

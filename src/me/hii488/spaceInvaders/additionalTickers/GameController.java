@@ -33,7 +33,7 @@ public class GameController implements ITickable{
 			
 			if(!enemiesStillAlive){
 				
-				Initilisation.standardEnemy.randTickChance *= 1.5f;
+				Initilisation.standardEnemy.randTickChance *= 2f;
 				
 				Initilisation.standardEnemy.currentState = 4;
 				for(int i = 0; i < 2; i++){
@@ -58,6 +58,8 @@ public class GameController implements ITickable{
 						Initilisation.mainContainer.addEntity(Initilisation.standardEnemy.clone());
 					}
 				}
+				
+				round++;
 			}
 		}
 	}
