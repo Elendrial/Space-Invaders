@@ -6,7 +6,9 @@ import me.hii488.gameWorld.World;
 import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.objects.entities.GeneralEntity;
 import me.hii488.spaceInvaders.Initilisation;
+import me.hii488.spaceInvaders.entities.EnemyShip;
 import me.hii488.spaceInvaders.entities.GeneralEnemyEntity;
+import me.hii488.spaceInvaders.entities.StandardEnemy;
 
 public class EnemyLogic implements ITickable{
 
@@ -14,7 +16,7 @@ public class EnemyLogic implements ITickable{
 	public boolean alwaysTicks() {return true;}
 
 	@Override
-	public float randTickChance() {return 0;}
+	public float randTickChance() {return 0.0067f;}
 	
 	public int currentMovementState = 0;
 	public int ticksInState = 0;
@@ -27,7 +29,7 @@ public class EnemyLogic implements ITickable{
 			ticksInState++;
 			movementStateUpdatedInTick = false;
 			for(GeneralEntity e : World.getCurrentWorldContainer().getEntities()){
-				if(e instanceof GeneralEnemyEntity){
+				if(e instanceof StandardEnemy){
 					if(!movementStateUpdatedInTick){
 						if(World.getCurrentWorldContainer().grid.getGridPositionOn(e.position).getX() >= World.getCurrentWorldContainer().grid.gridSize[0]-2){
 							currentMovementState = currentMovementState == 1 ? 2 : 1;
@@ -49,7 +51,7 @@ public class EnemyLogic implements ITickable{
 			}
 			
 			for(GeneralEntity e : World.getCurrentWorldContainer().getEntities()){
-				if(e instanceof GeneralEnemyEntity){
+				if(e instanceof StandardEnemy){
 					switch(currentMovementState){
 					case 0:
 						e.position.addToLocation(e.currentTexture.getWidth() + 4, 0);
@@ -79,24 +81,38 @@ public class EnemyLogic implements ITickable{
 			
 		}
 		ticksUntilMovement--;
+		
+		for(GeneralEntity ge : World.getCurrentWorldContainer().getEntities()){
+			if(ge instanceof EnemyShip) ge.position.addToLocation((((EnemyShip)ge).movementState) * 5, 0);
+		}
 	}
 
 	@Override
 	public void updateOnSec() {
 		// No need to put shooting in updateOnTick(), as it doesn't happen frequently enough.
 		for(GeneralEntity e : World.getCurrentWorldContainer().getEntities()){
-		//	e.showCollisionBox = true;
 			if(e instanceof GeneralEnemyEntity) {
 				if(World.getCurrentWorldContainer().getEntitiesInsideRect(new Rectangle(e.position.getX() + e.currentTexture.getWidth() / 2 - 2, e.position.getY() + e.currentTexture.getHeight(), 4, e.currentTexture.getHeight() * 6), false).isEmpty())  
 					((GeneralEnemyEntity) e).canShoot = true;
 				else ((GeneralEnemyEntity) e).canShoot = false;
 			}
-			
-		//	e.showCollisionBox = false;
 		}
+		
+		if(minSecWait > 0) minSecWait--;
 	}
 
+	public static int minSecWait = 0;
+	
 	@Override
-	public void updateOnRandTick() {}
+	public void updateOnRandTick() {
+		if(minSecWait <= 0){
+			Initilisation.enemyShip.movementState = World.rand.nextBoolean() ? 1 : -1;
+			Initilisation.enemyShip.position = Initilisation.empty.position.clone();
+			Initilisation.enemyShip.position.setX(Initilisation.enemyShip.movementState == 1 ? 5 : (World.mainWindow.width-Initilisation.enemyShip.currentTexture.getWidth()));
+			try{Initilisation.enemyShip.position.addToLocation(0, -32);}catch(Exception e){}
+			World.getCurrentWorldContainer().addEntity(Initilisation.enemyShip.clone());
+			minSecWait = 10;
+		}
+	}
 
 }

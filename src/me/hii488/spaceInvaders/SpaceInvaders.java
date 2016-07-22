@@ -7,7 +7,7 @@ public class SpaceInvaders {
 	
 	public static void main(String[] args){
 		Initilisation.gameSetup();
-		Settings.WorldSettings.TargetTPS = 1000;
+		Settings.WorldSettings.TargetTPS = 30;
 		World.startGame("Space Invader", 1000, 800);
 	}
 	

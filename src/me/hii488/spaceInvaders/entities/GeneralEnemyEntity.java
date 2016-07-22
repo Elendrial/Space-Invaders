@@ -40,4 +40,6 @@ public class GeneralEnemyEntity extends GeneralEntity{
 		return new GeneralEnemyEntity(this);
 	}
 	
+	public void isShot(Bullet b){}
+	
 }

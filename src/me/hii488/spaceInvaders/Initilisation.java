@@ -17,6 +17,7 @@ import me.hii488.objects.entities.GeneralEmptyEntity;
 import me.hii488.spaceInvaders.additionalTickers.EnemyLogic;
 import me.hii488.spaceInvaders.additionalTickers.GameController;
 import me.hii488.spaceInvaders.containers.GameContainer;
+import me.hii488.spaceInvaders.entities.EnemyShip;
 import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
 import me.hii488.spaceInvaders.entities.StandardEnemy;
 import me.hii488.spaceInvaders.tiles.BackgroundTile;
@@ -135,6 +136,7 @@ public class Initilisation implements IInitilisation{
 	
 	public static StandardEnemy standardEnemy;
 	public static GeneralEmptyEntity empty;
+	public static EnemyShip enemyShip;
 	
 	public void entityPreInit(){
 		standardEnemy = new StandardEnemy();
@@ -142,6 +144,9 @@ public class Initilisation implements IInitilisation{
 		
 		empty = new GeneralEmptyEntity();
 		empty.setup();
+		
+		enemyShip = new EnemyShip();
+		enemyShip.setup();
 	}
 	
 	public void entityInit(){

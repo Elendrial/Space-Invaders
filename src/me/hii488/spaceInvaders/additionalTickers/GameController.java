@@ -2,10 +2,8 @@ package me.hii488.spaceInvaders.additionalTickers;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.util.Map.Entry;
 
 import me.hii488.gameWorld.World;
-import me.hii488.gameWorld.baseTypes.GeneralWorldContainer;
 import me.hii488.gameWorld.tickControl.ITickable;
 import me.hii488.general.Position;
 import me.hii488.objects.entities.GeneralEntity;
@@ -32,7 +30,11 @@ public class GameController implements ITickable{
 			boolean enemiesStillAlive = false;
 			for(GeneralEntity e : World.getCurrentWorldContainer().getEntitiesInsideRect(new Rectangle(0,0,World.mainWindow.width-1,World.mainWindow.height-1)))
 				if(e instanceof GeneralEnemyEntity) enemiesStillAlive = true;
+			
 			if(!enemiesStillAlive){
+				
+				Initilisation.standardEnemy.randTickChance *= 1.5f;
+				
 				Initilisation.standardEnemy.currentState = 4;
 				for(int i = 0; i < 2; i++){
 					for(int j = 0; j < 15; j++){
@@ -81,6 +83,8 @@ public class GameController implements ITickable{
 			World.isPaused = false;
 			
 			World.Containers.removeContainer(0);
+			
+			Initilisation.standardEnemy.randTickChance = 00125f;
 			
 			GameContainer mainContainer = new GameContainer();
 			Initilisation.initClass.mainContainerPreInit(mainContainer);

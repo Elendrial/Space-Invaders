@@ -12,7 +12,7 @@ import me.hii488.spaceInvaders.tiles.InjuredBlockTile;
 
 public class Bullet extends GeneralEntity{
 	
-	public int speed = 10;
+	public int speed = 13;
 	public GeneralEntity shooter;
 	
 	@Override
@@ -31,8 +31,8 @@ public class Bullet extends GeneralEntity{
 		if(notDestroyed){
 			ArrayList<GeneralEntity> collidingWith = EntityHelper.getCollidingEntities(this);
 			for(GeneralEntity e : collidingWith){
-				if(e instanceof StandardEnemy){
-					((StandardEnemy) e).isShot(this);
+				if(e instanceof GeneralEnemyEntity){
+					((GeneralEnemyEntity) e).isShot(this);
 					if(notDestroyed)this.destroy();
 				}
 				if(e instanceof SpaceInvaderPlayer){
