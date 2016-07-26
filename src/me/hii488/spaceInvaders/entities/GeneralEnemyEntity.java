@@ -20,6 +20,13 @@ public class GeneralEnemyEntity extends GeneralEntity{
 	public void updateOnTick(){
 		super.updateOnTick();
 		if(notDestroyed) if(health <= 0) this.destroy();
+		
+		if(GameController.gameState == 1){
+			try{if(World.getCurrentWorldContainer().grid.getTile(World.getCurrentWorldContainer().grid.getGridPositionOn(position.clone().addToLocation(this.currentTexture.getWidth(), this.currentTexture.getHeight()))).getTileType().isCollidable){
+				((SpaceInvaderPlayer)World.player).lives = 0;
+				((SpaceInvaderPlayer)World.player).isShot(null);
+			}}catch(Exception e){}
+		}
 	}
 	
 	@Override

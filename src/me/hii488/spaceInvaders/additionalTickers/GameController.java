@@ -39,7 +39,7 @@ public class GameController implements ITickable{
 				for(int i = 0; i < 2; i++){
 					for(int j = 0; j < 15; j++){
 						Initilisation.standardEnemy.position = new Position(50+j*(Initilisation.standardEnemy.currentTexture.getWidth() + 4), Initilisation.empty.position.getY() + i*(Initilisation.standardEnemy.currentTexture.getHeight() + 4));
-						Initilisation.mainContainer.addEntity(Initilisation.standardEnemy.clone());
+						World.getCurrentWorldContainer().addEntity(Initilisation.standardEnemy.clone());
 					}
 				}
 				
@@ -47,7 +47,7 @@ public class GameController implements ITickable{
 				for(int i = 0; i < 2; i++){
 					for(int j = 0; j < 15; j++){
 						Initilisation.standardEnemy.position = new Position(50+j*(Initilisation.standardEnemy.currentTexture.getWidth() + 4), Initilisation.empty.position.getY() + 40 + i*(Initilisation.standardEnemy.currentTexture.getHeight() + 4));
-						Initilisation.mainContainer.addEntity(Initilisation.standardEnemy.clone());
+						World.getCurrentWorldContainer().addEntity(Initilisation.standardEnemy.clone());
 					}
 				}
 				
@@ -55,11 +55,12 @@ public class GameController implements ITickable{
 				for(int i = 0; i < 2; i++){
 					for(int j = 0; j < 15; j++){
 						Initilisation.standardEnemy.position = new Position(50+j*(Initilisation.standardEnemy.currentTexture.getWidth() + 4), Initilisation.empty.position.getY() + 80 + i*(Initilisation.standardEnemy.currentTexture.getHeight() + 4));
-						Initilisation.mainContainer.addEntity(Initilisation.standardEnemy.clone());
+						World.getCurrentWorldContainer().addEntity(Initilisation.standardEnemy.clone());
 					}
 				}
 				
 				round++;
+				score += (World.mainWindow.height - Initilisation.empty.position.getY());
 			}
 		}
 	}
@@ -75,10 +76,7 @@ public class GameController implements ITickable{
 		if(gameState == 0) {
 			gameState = 1;
 			loadGameContainer();
-		}
-		
-		if(gameState == 1 && e.getKeyCode() == KeyEvent.VK_P){
-			World.isPaused = !World.isPaused;
+			return;
 		}
 		
 		if(gameState == 2){
@@ -99,8 +97,14 @@ public class GameController implements ITickable{
 			World.Containers.loadNewContainer(mainContainer.ID);
 			
 			score = 0;
+			round = 1;
 			gameState = 1;
-			
+			return;
+		}
+		
+		if(gameState == 1 && e.getKeyCode() == KeyEvent.VK_P){
+			World.isPaused = !World.isPaused;
+			return;
 		}
 	}
 	

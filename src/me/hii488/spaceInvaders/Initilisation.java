@@ -18,7 +18,7 @@ import me.hii488.spaceInvaders.additionalTickers.EnemyLogic;
 import me.hii488.spaceInvaders.additionalTickers.GameController;
 import me.hii488.spaceInvaders.containers.GameContainer;
 import me.hii488.spaceInvaders.entities.EnemyShip;
-import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
+import me.hii488.spaceInvaders.entities.SpaceInvaderAIPlayer;
 import me.hii488.spaceInvaders.entities.StandardEnemy;
 import me.hii488.spaceInvaders.tiles.BackgroundTile;
 import me.hii488.spaceInvaders.tiles.BlockTile;
@@ -29,13 +29,14 @@ public class Initilisation implements IInitilisation{
 
 	public static Initilisation initClass = new Initilisation();
 	public static GameController gameController = new GameController();
+	public static EnemyLogic enemyLogic = new EnemyLogic();
 	
 	public static BufferedImage smallPlayerIcon;
 	
 	public static void gameSetup(){
 		WorldInitialisation.initList.add(initClass);
 		TickController.additionalEarlyTicking.add(gameController);
-		TickController.additionalEarlyTicking.add(new EnemyLogic());
+		TickController.additionalEarlyTicking.add(enemyLogic);
 		
 		try {
 			smallPlayerIcon = ImageIO.read(new File(System.getProperty("user.dir") + "\\resources\\textures\\entities\\playersmall.png"));
@@ -186,7 +187,7 @@ public class Initilisation implements IInitilisation{
 	
 	
 	public void worldPreInit(){
-		World.player = new SpaceInvaderPlayer();
+		World.player = new SpaceInvaderAIPlayer();
 	}
 	
 	public void worldInit(){
