@@ -24,12 +24,12 @@ public class SpaceInvaderAIPlayer extends SpaceInvaderPlayer{
 	public void setup() {
 		super.setup();
 		
-		lI.settings.generationSettings.childrenPerGeneration = 50;
+		lI.settings.generationSettings.childrenPerGeneration = 100;
 		lI.settings.generationSettings.additionalTopChildrenKept = 10;
 		lI.settings.generationSettings.mutationChance = 0.025f;
 		lI.settings.neuralSettings.inputs = World.getCurrentWorldContainer().grid.gridSize[0] * World.getCurrentWorldContainer().grid.gridSize[1];
 		lI.settings.neuralSettings.outputs = new String[]{"l", "r", "s"};
-		lI.settings.neuralSettings.nodesPerLayer = new int[]{lI.settings.neuralSettings.inputs, 100, 30, 3};
+		lI.settings.neuralSettings.nodesPerLayer = new int[]{lI.settings.neuralSettings.inputs, 200, 30, 3};
 		lI.settings.neuralSettings.cutoffThreshhold = 0.5f;
 		
 		lI.initialSetup();
@@ -143,6 +143,9 @@ public class SpaceInvaderAIPlayer extends SpaceInvaderPlayer{
 			}
 		}catch(Exception e){}*/
 		g.setColor(c);
+		
+		lI.displayOutputs(g, 5, World.mainWindow.height - 40, 5, true, true);
+		
 	}
 	
 }

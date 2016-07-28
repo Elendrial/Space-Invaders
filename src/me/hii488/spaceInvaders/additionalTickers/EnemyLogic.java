@@ -114,7 +114,7 @@ public class EnemyLogic implements ITickable{
 	
 	@Override
 	public void updateOnRandTick() {
-		if(minSecWait <= 0){
+		if(minSecWait <= 0 && GameController.gameState == 1){
 			Initilisation.enemyShip.movementState = World.rand.nextBoolean() ? 1 : -1;
 			Initilisation.enemyShip.position = Initilisation.empty.position.clone();
 			Initilisation.enemyShip.position.setX(Initilisation.enemyShip.movementState == 1 ? 5 : (World.mainWindow.width-Initilisation.enemyShip.currentTexture.getWidth()));
