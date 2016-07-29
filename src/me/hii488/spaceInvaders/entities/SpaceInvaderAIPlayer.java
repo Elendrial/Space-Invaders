@@ -98,10 +98,10 @@ public class SpaceInvaderAIPlayer extends SpaceInvaderPlayer{
 		for(String str : s){
 			switch(str){
 			case "l":
-				queuedMovement.addtoDx(-speed);
+				queuedMovement.addtoDx(speed);
 				break;
 			case "r":
-				queuedMovement.addtoDx(speed);
+				queuedMovement.addtoDx(-speed);
 				break;
 			case "s":
 				if(cooldown <= 0){
