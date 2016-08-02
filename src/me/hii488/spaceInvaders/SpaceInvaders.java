@@ -9,8 +9,10 @@ public class SpaceInvaders {
 		if(args.length != 0) if(args[0].toLowerCase().equals("-ai")) Initilisation.AI = true;
 		
 		Initilisation.gameSetup();
+		
 		Settings.WorldSettings.TargetTPS = Initilisation.AI ? 2500 : 30;
 		Settings.Logging.tpsPrinter = false;
+		
 		World.startGame("Space Invader", 1000, 800);
 		/*for(int i = 0; i < 62; i++){
 			System.out.println();
