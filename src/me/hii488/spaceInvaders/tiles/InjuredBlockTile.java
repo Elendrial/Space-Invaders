@@ -8,7 +8,6 @@ public class InjuredBlockTile extends BaseTileType {
 	public void setup() {
 
 		this.isCollidable = true;
-		this.multipleStates = false;
 		this.textureName = "injuredBlock.png";
 		this.zLayer = 0;
 

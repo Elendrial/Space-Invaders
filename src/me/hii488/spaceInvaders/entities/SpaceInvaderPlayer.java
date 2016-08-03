@@ -21,7 +21,7 @@ public class SpaceInvaderPlayer extends Player{
 	public void setup() {
 		this.textureName = "player.png";
 		super.setup();
-		this.speed = 5;
+		this.speed = 6;
 	}
 	
 	@Override

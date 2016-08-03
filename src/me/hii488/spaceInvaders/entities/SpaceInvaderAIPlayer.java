@@ -20,18 +20,20 @@ public class SpaceInvaderAIPlayer extends SpaceInvaderPlayer{
 	
 	public LearningIntelligence lI = new LearningIntelligence();
 	
-	@Override
-	public void setup() {
-		super.setup();
-		
+	{
 		lI.settings.generationSettings.childrenPerGeneration = 100;
 		lI.settings.generationSettings.additionalTopChildrenKept = 10;
 		lI.settings.generationSettings.mutationChance = 0.025f;
-		lI.settings.neuralSettings.inputs = World.getCurrentWorldContainer().grid.gridSize[0] * World.getCurrentWorldContainer().grid.gridSize[1];
 		lI.settings.neuralSettings.outputs = new String[]{"l", "r", "s"};
-		lI.settings.neuralSettings.nodesPerLayer = new int[]{lI.settings.neuralSettings.inputs, 200, 30, 3};
+		lI.settings.neuralSettings.nodesPerLayer = new int[]{0, 200, 30, 3};
 		lI.settings.neuralSettings.cutoffThreshhold = 0.5f;
-		
+	}
+	
+	@Override
+	public void setup() {
+		super.setup();
+		lI.settings.neuralSettings.inputs = World.getCurrentWorldContainer().grid.gridSize[0] * World.getCurrentWorldContainer().grid.gridSize[1];
+		lI.settings.neuralSettings.nodesPerLayer[0] = lI.settings.neuralSettings.inputs;
 		lI.initialSetup();
 	}
 	

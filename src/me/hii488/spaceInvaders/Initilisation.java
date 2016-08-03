@@ -10,11 +10,11 @@ import me.hii488.gameWorld.tickControl.TickController;
 import me.hii488.general.Position;
 import me.hii488.helpers.TextureHelper;
 import me.hii488.objects.entities.GeneralEmptyEntity;
+import me.hii488.objects.entities.Player;
 import me.hii488.spaceInvaders.additionalTickers.EnemyLogic;
 import me.hii488.spaceInvaders.additionalTickers.GameController;
 import me.hii488.spaceInvaders.containers.GameContainer;
 import me.hii488.spaceInvaders.entities.EnemyShip;
-import me.hii488.spaceInvaders.entities.SpaceInvaderAIPlayer;
 import me.hii488.spaceInvaders.entities.SpaceInvaderPlayer;
 import me.hii488.spaceInvaders.entities.StandardEnemy;
 import me.hii488.spaceInvaders.tiles.BackgroundTile;
@@ -171,10 +171,9 @@ public class Initilisation implements IInitilisation{
 		}
 	}
 	
-	public static boolean AI = false;
-	
+	public static Player p = new SpaceInvaderPlayer();
 	public void worldPreInit(){
-		World.player = AI ? new SpaceInvaderAIPlayer() : new SpaceInvaderPlayer();
+		World.player = p;
 	}
 	
 	public void worldInit(){

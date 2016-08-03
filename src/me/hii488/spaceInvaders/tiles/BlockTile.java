@@ -8,7 +8,6 @@ public class BlockTile extends BaseTileType {
 	public void setup() {
 
 		this.isCollidable = true;
-		this.multipleStates = false;
 		this.textureName = "block.png";
 		this.zLayer = 0;
 

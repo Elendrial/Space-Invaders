@@ -18,7 +18,7 @@ public class EnemyLogic implements ITickable{
 	public boolean alwaysTicks() {return true;}
 
 	@Override
-	public float randTickChance() {return 0.00067f;}
+	public float randTickChance() {return 0.001f;}
 	
 	public int currentMovementState = 0;
 	public int ticksInState = 0;
@@ -85,7 +85,7 @@ public class EnemyLogic implements ITickable{
 		ticksUntilMovement--;
 		
 		for(GeneralEntity ge : World.getCurrentWorldContainer().getEntities()){
-			if(ge instanceof EnemyShip) ge.position.addToLocation((((EnemyShip)ge).movementState) * 5, 0);
+			if(ge instanceof EnemyShip) ge.position.addToLocation((((EnemyShip)ge).movementState) * 4, 0);
 			if(ge instanceof GeneralEmptyEntity) if(ge.position.getAbsY() > World.mainWindow.height - 100) {
 				((SpaceInvaderPlayer)World.player).lives = 0;
 				((SpaceInvaderPlayer)World.player).isShot(null);
